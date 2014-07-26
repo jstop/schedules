@@ -1,0 +1,55 @@
+.container-fluid
+  .row
+    .panel.panel-primary
+      .panel-heading
+        .container-fluid
+
+          %span.pull-left
+            -#TODO create an @routine.downloads to fill in the number here
+            %h4 +32
+          / Tabs
+          %span.pull-right
+            %ul.nav.panel-tabs
+              %li.active
+                %a{"data-toggle" => "tab", href: "#tab1-#{@routine.id}"} Info
+              %li
+                %a{"data-toggle" => "tab", href: "#tab2-#{@routine.id}"} About
+              %li
+                %a{"data-toggle" => "tab", href: "#tab3-#{@routine.id}"} Download
+      .panel-body
+        .tab-content
+          .tab-pane.active{ :id => "tab1-#{@routine.id}" }
+            .container-fluid
+              %h4.text-center=@routine.title
+              %br
+              .row
+                .col-xs-1
+                .col-xs-7
+                  %p.lead{:style => "margin-bottom: 0px;"} 
+                    #{@routine.minutes+@routine.hours*60} minutes/day
+                  %p.lead 
+                    #{@routine.days} days/week
+                .col-xs-3
+                  .text-center
+                    %h5{:style => "margin-top: 5px;"}  Weeks
+                  .row.text-center
+                    %span.label.label-primary #{@routine.weeks}
+                
+          .tab-pane{ :id => "tab2-#{@routine.id}" }
+            =@routine.purpose
+          .tab-pane{ :id => "tab3-#{@routine.id}" }
+            .row-fluid.text-center
+              Start Date &amp; Time
+            .row-fluid.text-center
+              .form-group
+                .input-group.date{ :id => "datetimepicker#{@routine.id}" }
+                  %input.form-control{type: "text"}/
+                  %span.input-group-addon
+                    %span.glyphicon.glyphicon-calendar
+                :javascript
+                  $(function () {
+                      $("#datetimepicker#{@routine.id}").datetimepicker({
+                      });
+                  });
+                %br
+                .btn.btn-info Build Schedule

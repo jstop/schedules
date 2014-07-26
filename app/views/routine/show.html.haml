@@ -1,0 +1,41 @@
+- model_class = Routine
+.page-header
+  %h1=t '.title', :default => model_class.model_name.human
+
+%p
+  %strong= model_class.human_attribute_name(:title) + ':'
+  %br
+  = @routine.title
+%p
+  %strong= model_class.human_attribute_name(:purpose) + ':'
+  %br
+  = @routine.purpose
+%p
+  %strong= model_class.human_attribute_name(:resources) + ':'
+  %br
+  = @routine.resources
+%p
+  %strong= model_class.human_attribute_name(:weeks) + ':'
+  %br
+  = @routine.weeks
+%p
+  %strong= model_class.human_attribute_name(:days) + ':'
+  %br
+  = @routine.days
+%p
+  %strong= model_class.human_attribute_name(:hours) + ':'
+  %br
+  = @routine.hours
+%p
+  %strong= model_class.human_attribute_name(:minutes) + ':'
+  %br
+  = @routine.minutes
+%p
+  %strong= model_class.human_attribute_name(:user_id) + ':'
+  %br
+  = @routine.user_id
+
+.form-actions
+  = link_to t('.back', :default => t("helpers.links.back")), routine_path, :class => 'btn'
+  = link_to t('.edit', :default => t("helpers.links.edit")), edit_routine_path(@routine), :class => 'btn btn-primary'
+  = link_to t('.destroy', :default => t("helpers.links.destroy")), routine_path(@routine), :method => "delete", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger'

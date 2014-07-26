@@ -10,6 +10,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 gem 'bootstrap-sass'
+# twitter bootstrap css & javascript toolkit
 gem 'devise'
 gem 'haml-rails'
 gem 'pg'
@@ -34,3 +35,11 @@ group :test do
   gem 'launchy'
   gem 'selenium-webdriver'
 end
+gem 'twitter-bootswatch-rails', '~> 3.2.0'
+# twitter bootstrap helpers gem, e.g., alerts etc...
+gem 'twitter-bootswatch-rails-helpers'
+# one of these gems require less which require therubyracer
+gem 'therubyracer'
+gem 'acts-as-taggable-on'
+gem 'momentjs-rails', '>= 2.5.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 3.0.0.2'

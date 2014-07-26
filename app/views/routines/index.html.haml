@@ -1,0 +1,66 @@
+%br
+.lead.text-center Share Schedules
+- @routines.each_with_index do |routine, i|
+  -@routine = routine
+  -if i%3==0
+    .row
+  .col-md-4
+    =render 'routines/routine'
+  -#.panel.col-md-3{id: "routine#{i}","aria-describedby" => "popover66283", "data-container" => "body", "data-content" => routine.purpose, "data-original-title" => "", "data-placement" => "right", "data-toggle" => "popover", title: "", type: "button"} 
+    .panel-body{:style => "height: 400px"}
+      .row
+        %h1= routine.title
+      .row
+        %h2 Recomendations
+      .row
+        %h3
+          =routine.days
+          Days
+      .row
+        %h4
+          =routine.weeks
+          Weeks
+      .row
+        %h5
+          =routine.weeks
+          Weeks
+      .row
+        %h6
+          =routine.weeks
+          Weeks
+      .row
+        %div
+          %p.lead
+            =routine.weeks
+            Weeks
+      .row
+        %p
+          =routine.weeks
+          Weeks
+      
+      :javascript
+        $(function ()  
+          {
+            $('#routine#{i}').popover(
+              {
+                trigger: 'hover',
+                html: true
+              });
+          });
+  -#unless i%3==2
+    .col-md-1
+  -#%tr
+    %td= routine.title
+    %td= routine.purpose
+    %td= routine.resources
+    %td= routine.weeks
+    %td= routine.days
+    %td= routine.hours
+    %td= routine.minutes
+    %td= routine.user
+    %td= link_to 'Show', routine
+    %td= link_to 'Edit', edit_routine_path(routine)
+    %td= link_to 'Destroy', routine, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+-#.row
+  = link_to 'New Routine', new_routine_path
