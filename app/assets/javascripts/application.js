@@ -10,11 +10,15 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require moment
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require bootstrap
-//= require lumen/loader
-//= require lumen/bootswatch
-//= require moment
 //= require bootstrap-datetimepicker
+//= require bootstrap
+//= require lumen/bootswatch
+
+
+$(document).ready(function(){
+  $('.btn').button();
+});

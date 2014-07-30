@@ -5,11 +5,17 @@ class RoutinesController < ApplicationController
   # GET /routines.json
   def index
     @routines = Routine.all
+    @default_start = DateTime.now.tomorrow.noon.strftime("%m/%d/%Y %I:%M %p")
   end
 
   # GET /routines/1
   # GET /routines/1.json
   def show
+    puts params
+    respond_to do |format|
+      format.html
+      format.ics { send_data(create_ical_from(@routine, params[:start_date], params[:days]), :filename=>"RoutineBuilders.ics", :disposition=>"inline; filename=RoutineBuilders.ics", :type=>'text/calendar')}
+    end
   end
 
   # GET /routines/new
@@ -74,5 +80,33 @@ class RoutinesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def routine_params
       params.require(:routine).permit(:title, :purpose, :resources, :weeks, :days, :hours, :minutes, :user_id, :tag_list)
+    end
+
+    def create_ical_from(routine, start_date, days)
+      #move this into a function or relocate
+      #adjust_records(routine)
+      start = DateTime.strptime('07/27/2014 10:00 AM', '%m/%d/%Y %I:%M %p')
+      #start = DateTime.strptime(start_date, '%m/%d/%Y %I:%M %p')
+      calendar = RiCal.Calendar do
+        event do
+          summary routine.title
+          url routine.resources
+          description routine.purpose + routine.resources
+          dtstart     start.with_floating_timezone
+          duration    "+PT#{routine.hours}H#{routine.minutes}M" #get_duration that will create the currect string for building the duration
+          rrule       :freq => "WEEKLY", :until => start + routine.weeks.week, :byday => days
+        end
+      end
+      calendar.export
+    end
+    def adjust_records(routine) if signed_in?  current_user.records << Record.new(routine_id: routine.id, start_date: params[:start_date])
+        current_user.routines_used << routine.id
+        current_user.save
+        unless routine.used_by.include? current_user.id
+          routine.used_by << current_user.id
+          routine.inc(:download_count, 1)
+          routine.save
+        end
+      end
     end
 end
