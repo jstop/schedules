@@ -18,7 +18,7 @@
         .tab-content
           .tab-pane.active{ :id => "tab1-#{@routine.id}" }
             .container-fluid
-              %h2.text-center
+              %h2.text-center{:style => 'margin:0px'}
                 %span.text-muted=@routine.title
               %br
               .row
@@ -34,7 +34,7 @@
                     %span.label.label-primary #{@routine.weeks}
                 
           .tab-pane{ :id => "tab2-#{@routine.id}" }
-            =@routine.purpose
+            .lead=@routine.purpose
           .tab-pane{ :id => "tab3-#{@routine.id}" }
             %form{ action: "/routines/#{@routine.id}.ics", method: 'get', id: "myForm", style: "margin-top:0px;"}
               .row-fluid 
