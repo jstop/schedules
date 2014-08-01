@@ -35,28 +35,37 @@
                 
           .tab-pane{ :id => "tab2-#{@routine.id}" }
             .lead=@routine.purpose
-          .tab-pane{ :id => "tab3-#{@routine.id}" }
-            %form{ action: "/routines/#{@routine.id}.ics", method: 'get', id: "myForm", style: "margin-top:0px;"}
-              .row-fluid 
+          .tab-pane.text-center{ :id => "tab3-#{@routine.id}" }
+            %form{ action: "/routines/#{@routine.id}.ics", method: 'get', id: "myForm#{@routine.id}", style: "margin-top:0px;"}
+              %br
+              .row-fluid.text-center
                 .btn-group{"data-toggle" => "buttons"}
                   -Routine::DAYS.each do |day|
                     %label.btn.btn-primary
                       %input{type: "checkbox", name:"days[]", value: day}=day[0,1]
                 :javascript
                   $('.btn').button()
-                    -#%button.btn.btn-primary{type: "checkbox", name:"days[]", value: day}=day[0,1]
-            .row-fluid.text-center
-              Start Date &amp; Time
-            .row-fluid.text-center
-              .form-group
-                .input-group.date{ :id => "datetimepicker#{@routine.id}" }
-                  %input.form-control{type: "text"}/
-                  %span.input-group-addon
-                    %span.glyphicon.glyphicon-calendar
-                :javascript
-                  $(function () {
+              %br
+              .row-fluid.text-center
+                .form-group{:style => "width:250px"}
+                  .input-group.date{ :id => "datetimepicker#{@routine.id}" }
+                    %input.form-control{type: "text", name: 'datetime', value: @default_start}
+                    %span.input-group-addon
+                      %span.glyphicon.glyphicon-calendar
+                  :javascript
+                    $(function () {
                       $("#datetimepicker#{@routine.id}").datetimepicker({
                       });
-                  });
-                %br
-                .btn.btn-success Build Schedule
+                    });
+              .row-fluid.text-center
+                %input.btn.btn-success{:type => 'submit', :value => 'Download'}
+            :javascript
+              $("#myForm#{@routine.id}").submit(function() {
+                  $("#myForm#{@routine.id} .btn.active").each(function() {
+                       var input = document.createElement("input");
+                       input.setAttribute("type", "hidden");
+                       input.setAttribute("name", this.name);
+                       input.setAttribute("value", this.value);
+                       document.getElementById("myForm#{@routine.id}").appendChild(input);
+                   });
+              });

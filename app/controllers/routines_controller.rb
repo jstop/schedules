@@ -14,7 +14,7 @@ class RoutinesController < ApplicationController
     puts params
     respond_to do |format|
       format.html
-      format.ics { send_data(create_ical_from(@routine, params[:start_date], params[:days]), :filename=>"RoutineBuilders.ics", :disposition=>"inline; filename=RoutineBuilders.ics", :type=>'text/calendar')}
+      format.ics { send_data(create_ical_from(@routine, params[:datetime], params[:days]), :filename=>"RoutineBuilders.ics", :disposition=>"inline; filename=RoutineBuilders.ics", :type=>'text/calendar')}
     end
   end
 
@@ -85,8 +85,7 @@ class RoutinesController < ApplicationController
     def create_ical_from(routine, start_date, days)
       #move this into a function or relocate
       #adjust_records(routine)
-      start = DateTime.strptime('07/27/2014 10:00 AM', '%m/%d/%Y %I:%M %p')
-      #start = DateTime.strptime(start_date, '%m/%d/%Y %I:%M %p')
+      start = DateTime.strptime(start_date, '%m/%d/%Y %I:%M %p')
       calendar = RiCal.Calendar do
         event do
           summary routine.title
