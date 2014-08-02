@@ -1,12 +1,11 @@
-= simple_form_for @routine, :html => { :class => 'form-horizontal' } do |f|
-  = f.input :title
-  = f.input :purpose
-  = f.input :resources
-  = f.input :weeks
-  = f.input :days
-  = f.input :hours
-  = f.input :minutes
-  = f.input :user_id
-  .form-actions
-    = f.button :submit, :class => 'btn btn-primary'
-    = link_to t('.cancel', :default => t("helpers.links.cancel")), routines_path, :class => 'btn'
+.col-md-4
+  = bootstrap_form_for @routine, :html => { :class => 'form-horizontal' } do |f|
+    = f.text_field :title
+    = f.text_area :purpose
+    = f.text_field :resources
+    = f.number_field :weeks
+    = f.number_field :days
+    = f.number_field :minutes
+    .form-actions
+      = f.button :submit, :class => 'btn btn-primary'
+      = link_to t('.cancel', :default => t("helpers.links.cancel")), routines_path, :class => 'btn'

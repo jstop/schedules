@@ -41,6 +41,7 @@ GEM
       sass (~> 3.2)
     bootstrap3-datetimepicker-rails (3.0.0.2)
       momentjs-rails (~> 2.5.0)
+    bootstrap_form (2.1.1)
     builder (3.2.2)
     capybara (2.4.1)
       mime-types (>= 1.16)
@@ -244,6 +245,7 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-sass
   bootstrap3-datetimepicker-rails (~> 3.0.0.2)
+  bootstrap_form
   capybara
   coffee-rails (~> 4.0.0)
   database_cleaner

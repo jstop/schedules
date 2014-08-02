@@ -38,6 +38,7 @@ end
 gem 'twitter-bootswatch-rails', '~> 3.2.0'
 # twitter bootstrap helpers gem, e.g., alerts etc...
 gem 'twitter-bootswatch-rails-helpers'
+gem 'bootstrap_form'
 # one of these gems require less which require therubyracer
 gem 'therubyracer'
 gem 'acts-as-taggable-on'
