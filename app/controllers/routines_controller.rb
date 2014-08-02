@@ -30,12 +30,11 @@ class RoutinesController < ApplicationController
   # POST /routines
   # POST /routines.json
   def create
-    puts '=================================='
-    puts '=================================='
-    puts '=================================='
     puts routine_params
     @routine = Routine.new(routine_params)
-
+    if signed_in?
+      @routine.user = current_user
+    end
     respond_to do |format|
       if @routine.save
         format.html { redirect_to @routine, notice: 'Routine was successfully created.' }
